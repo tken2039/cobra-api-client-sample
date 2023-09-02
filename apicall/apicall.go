@@ -7,7 +7,7 @@ import (
 	"github.com/tken2039/cobra-api-client-sample/domain/user"
 )
 
-type APICaller struct {
+type APICall struct {
 	APIClient     UserAPI
 	outputOptions OutputOptions
 }
@@ -17,8 +17,8 @@ type OutputOptions struct {
 	Full   bool
 }
 
-func NewAPICaller(apiClient UserAPI, opts OutputOptions) *APICaller {
-	return &APICaller{
+func NewAPICall(apiClient UserAPI, opts OutputOptions) *APICall {
+	return &APICall{
 		APIClient:     apiClient,
 		outputOptions: opts,
 	}
@@ -28,7 +28,7 @@ type UserAPI interface {
 	Get() ([]*user.User, error)
 }
 
-func (c *APICaller) Run() error {
+func (c *APICall) Run() error {
 	users, err := c.APIClient.Get()
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func (c *APICaller) Run() error {
 	}
 }
 
-func (c *APICaller) outputJson(users []*user.User) error {
+func (c *APICall) outputJson(users []*user.User) error {
 	if c.outputOptions.Full {
 		json, err := json.Marshal(users)
 		if err != nil {
@@ -82,7 +82,7 @@ func (c *APICaller) outputJson(users []*user.User) error {
 	return nil
 }
 
-func (c *APICaller) outputTable(users []*user.User) error {
+func (c *APICall) outputTable(users []*user.User) error {
 	if c.outputOptions.Full {
 		// Output header
 		fmt.Printf("%-24s %-18s %-20s %-10s %-10s %-10s %-15s %-15s %-30s %-30s %-30s %-14s\n",

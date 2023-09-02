@@ -1,25 +1,25 @@
-package apiclientcmd
+package apicallcmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/tken2039/cobra-api-client-sample/apicaller"
+	apicall "github.com/tken2039/cobra-api-client-sample/apicall"
 	"github.com/tken2039/cobra-api-client-sample/fake/json"
 )
 
-type apiClientOptions struct {
+type apiCallOptions struct {
 	jsonFilePath string
 	format       string
 	full         bool
 }
 
-func APIClientCmd() *cobra.Command {
-	opts := &apiClientOptions{}
+func APICallCmd() *cobra.Command {
+	opts := &apiCallOptions{}
 
 	cmd := &cobra.Command{
-		Use:   "apicaller",
+		Use:   "apicall",
 		Short: "This command shows the contents of the json file as an API response.",
 		Run: func(cmd *cobra.Command, args []string) {
-			runAPICaller(opts)
+			runAPICall(opts)
 		},
 	}
 
@@ -31,18 +31,18 @@ func APIClientCmd() *cobra.Command {
 	return cmd
 }
 
-func runAPICaller(opts *apiClientOptions) error {
+func runAPICall(opts *apiCallOptions) error {
 	apiClient := json.NewAPIClientFakeJSON(opts.jsonFilePath)
 
 	if opts.format != "json" {
 		opts.format = "table"
 	}
 
-	outputOptions := apicaller.OutputOptions{
+	outputOptions := apicall.OutputOptions{
 		Format: opts.format,
 		Full:   opts.full,
 	}
-	c := apicaller.NewAPICaller(apiClient, outputOptions)
+	c := apicall.NewAPICall(apiClient, outputOptions)
 
 	return c.Run()
 }
