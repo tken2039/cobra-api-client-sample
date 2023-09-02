@@ -23,8 +23,7 @@ func APICallCmd() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVarP(&opts.jsonFilePath, "file", "f", "sample/sample.json", "json file path (required))")
-	cmd.MarkPersistentFlagRequired("file")
+	cmd.Flags().StringVarP(&opts.jsonFilePath, "file", "f", "sample/sample.json", "json file path")
 	cmd.Flags().StringVarP(&opts.format, "format", "", "table", "output format ('table' or 'json')")
 	cmd.Flags().BoolVarP(&opts.full, "full", "", false, "full the output (default false)")
 
