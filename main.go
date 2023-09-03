@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/spf13/cobra"
-	apiclientcmd "github.com/tken2039/cobra-api-client-sample/cmd/apicallcmd"
+	"github.com/tken2039/cobra-api-client-sample/cmd/apicallcmd"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func rootCmd() *cobra.Command {
 		Short: "This tool is a sample to create a pseudo API client using the Go CLI framework cobra.",
 	}
 
-	rootCmd.AddCommand(apiclientcmd.APICallCmd())
+	rootCmd.AddCommand(apicallcmd.APICallCmd())
 
 	return rootCmd
 }
